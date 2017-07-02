@@ -1,0 +1,22 @@
+{
+    "name": "xw2423/svn-user-up",
+    "description": "svn up by user",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xw2423",
+            "email": "xw2423@sina.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "docopt/docopt":"1.0.2"
+    },
+    "bin": ["bin/cli"],
+    "autoload": {
+        "psr-4":{
+            "SvnUserParser\\": "src/"
+        }
+    }
+}
