@@ -11,13 +11,14 @@ class Parser
 
     const DOC = <<<DOC
 Usage:
-    cli.php USER [-r REV|--revision REV] [-l LIMIT|--limit LIMIT] [-e|--exec]
+    cli.php USER [-r REV] [-l LIMIT] [-d DIR] [-e]
 
 Options:
-    -r REV, --revision REV      set svn update revision
-    -l LIMIT, --limit LIMIT     set number of recent revision [default: 100]
-    -e --exec                   execute command
-    -h --help                   Show this screen.
+    -r REV, --revision=REV      set svn update revision
+    -l LIMIT, --limit=LIMIT     set number of recent revision [default: 100]
+    -d DIR, --directory=DIR     set svn directory
+    -e, --exec                  execute command
+    -h, --help                  Show this screen.
 DOC;
 
     private $_repoDir = '';
@@ -37,19 +38,30 @@ DOC;
 
     public static function parse(){
         $args = (new \Docopt\Handler)->handle(self::DOC);
-        $parser = new Parser();
+        // var_dump($args);exit();
+        $parser = new Parser($args['--directory']);
         $parser->user = $args['USER'];
         $parser->limit = $args['--limit'];
         $parser->revision = $args['--revision'];
         $parser->run($args['--exec']);
     }
 
-    public function __construct($dir = ''){
-        $this->_repoDir = $dir === ''?getcwd():$dir;
+    public function __construct($dir = null){
+        if($dir === null){
+            $this->_repoDir = getcwd();
+        }else{
+            try{
+                $dir = realpath($dir);
+                chdir($dir);
+            }catch(\Exception $e){
+                self::log(sprintf('change directory to %s failed!', $dir), true);
+            }
+            $this->_repoDir = $dir;
+        }
         $this->_repoUrl = exec(self::COM_REPOURL);
         $this->_baseUrl = exec(self::COM_BASEURL);
         if($this->_repoUrl == '')
-            self::log($repoDir . ' is not a svn directory', true);
+            self::log($this->_repoDir . ' is not a svn directory', true);
     }
 
     public function run($exec = false){
@@ -58,9 +70,9 @@ DOC;
         try{
             $xml = simplexml_load_string($xmlraw);
             if($xml === false)
-                throw new Exception();
-        }catch(Exception $e){
-            self::log('load svn log error!');
+                throw new \Exception();
+        }catch(\Exception $e){
+            self::log('load svn log error!', true);
         }
 
         $data = $this->_getLogData($xml);
