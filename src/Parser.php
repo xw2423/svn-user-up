@@ -65,7 +65,7 @@ DOC;
     }
 
     public function run($exec = false){
-        $xmlraw = shell_exec(sprintf(self::COM_SVNLOG, $this->limit, $this->_repoDir));
+        $xmlraw = shell_exec(sprintf(self::COM_SVNLOG, $this->limit, $this->_repoUrl));
         libxml_use_internal_errors(true);
         try{
             $xml = simplexml_load_string($xmlraw);
