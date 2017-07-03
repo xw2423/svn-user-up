@@ -3,7 +3,7 @@
     "description": "svn up by user",
     "version": "0.1.0",
     "type": "library",
-    "keywords": "svn",
+    "keywords": ["svn"],
     "homepage": "https://github.com/xw2423/svn-user-up",
     "license": "MIT",
     "authors": [
