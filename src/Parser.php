@@ -50,12 +50,8 @@ DOC;
         if($dir === null){
             $this->_repoDir = getcwd();
         }else{
-            try{
-                $dir = realpath($dir);
-                chdir($dir);
-            }catch(\Exception $e){
+            if(@chdir(realpath($dir)) === false)
                 self::log(sprintf('change directory to %s failed!', $dir), true);
-            }
             $this->_repoDir = $dir;
         }
         $this->_repoUrl = exec(self::COM_REPOURL);
