@@ -1,5 +1,5 @@
 <?php
-namespace SvnUserParser;
+namespace SvnUserUp;
 
 class Parser
 {

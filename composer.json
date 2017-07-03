@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4":{
-            "SvnUserParser\\": "src/"
+            "SvnUserUp\\": "src/"
         }
     },
     "bin": ["bin/cli"]

@@ -1,4 +1,4 @@
 #!/usr/bin/env php
 <?php
 require dirname(dirname(__file__)) . '/vendor/autoload.php';
-\SvnUserParser\Parser::parse();
+\SvnUserUp\Parser::parse();
