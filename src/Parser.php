@@ -4,8 +4,8 @@ namespace SvnUserUp;
 class Parser
 {
 
-    const COM_REPOURL = 'svn info 2>&1|grep "URL: svn://.*"|awk \'{print $2}\'';
-    const COM_BASEURL = 'svn info 2>&1|grep "[^L]: svn://.*"|awk \'{print $2}\'';
+    const COM_REPOURL = 'svn info 2>&1|grep -o "URL: svn://.*"|awk \'{print $2}\'';
+    const COM_BASEURL = 'svn info 2>&1|grep -o "[^L]: svn://.*"|awk \'{print $2}\'';
     const COM_SVNLOG = 'svn log -v --xml -l %s "%s" 2>&1';
     const COM_SVNUP = 'svn up -r %s %s';
 
