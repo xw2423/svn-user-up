@@ -15,7 +15,7 @@
     "support": {
         "email": "xw2423@sina.com",
         "issue": "https://github.com/xw2423/svn-user-up/issues"
-    }
+    },
     "require": {
         "php": ">=5.4.0",
         "docopt/docopt":"1.0.2"
